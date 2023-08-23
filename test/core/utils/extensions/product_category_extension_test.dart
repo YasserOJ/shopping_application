@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shopping_application/core/enums/product_category.dart';
 import 'package:shopping_application/core/utils/extensions/product_category_extension.dart';
-import 'package:shopping_application/core/utils/extensions/string_extension.dart';
 
 void main() {
   late ProductCategory testString;
