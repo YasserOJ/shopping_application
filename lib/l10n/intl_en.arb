@@ -1,0 +1,10 @@
+{
+  "discover_label": "Discover",
+  "home_subtitle_label": "Best modern products",
+  "search_for_products_hint_label": "Search your Products",
+  "product_details_label": "Product Details",
+  "add_to_cart_label": "Add to cart",
+  "cart_total_items_label": "{count, plural,one{Total (1 item):}other{Total ({count} items):}}",
+  "cart_label": "Cart",
+  "check_out_label": "Check Out"
+}
