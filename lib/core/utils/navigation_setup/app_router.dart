@@ -9,5 +9,14 @@ class AppRouter extends $AppRouter {
           page: SplashScreenRoute.page,
           initial: true,
         ),
+        AutoRoute(
+          page: ShopHomeRoute.page,
+        ),
+        AutoRoute(
+          page: ProductDetailsRoute.page,
+        ),
+        AutoRoute(
+          page: CartRoute.page,
+        ),
       ];
 }
