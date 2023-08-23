@@ -9,6 +9,7 @@ import 'package:shopping_application/modules/shop/domain/entity/product_entity.d
 import 'package:shopping_application/modules/shop/domain/use_case/get_all_products_use_case.dart';
 
 part 'shop_home_event.dart';
+
 part 'shop_home_state.dart';
 
 @injectable
@@ -26,30 +27,33 @@ class ShopHomeBloc extends Bloc<ShopHomeEvent, ShopHomeState> {
       if (event is ShowProductsByCategory) {
         emit(ShopHomeLoading());
         final List<ProductEntity> products = userManager.allProducts ?? [];
-        ProductCategory categoryToSelect = ProductCategory.all;
-        switch (event.category) {
-          case ProductCategory.all:
-            categoryToSelect = ProductCategory.all;
-            loadedProducts = products;
-            break;
-          case ProductCategory.menClothing:
-            categoryToSelect = ProductCategory.menClothing;
-            break;
-          case ProductCategory.womenClothing:
-            categoryToSelect = ProductCategory.womenClothing;
-            break;
-          case ProductCategory.jewelery:
-            categoryToSelect = ProductCategory.jewelery;
-            break;
-          case ProductCategory.electronics:
-            categoryToSelect = ProductCategory.electronics;
-            break;
+        if (products.isNotEmpty) {
+          ProductCategory categoryToSelect = ProductCategory.all;
+          switch (event.category) {
+            case ProductCategory.all:
+              categoryToSelect = ProductCategory.all;
+              loadedProducts = products;
+              break;
+            case ProductCategory.menClothing:
+              categoryToSelect = ProductCategory.menClothing;
+              break;
+            case ProductCategory.womenClothing:
+              categoryToSelect = ProductCategory.womenClothing;
+              break;
+            case ProductCategory.jewelery:
+              categoryToSelect = ProductCategory.jewelery;
+              break;
+            case ProductCategory.electronics:
+              categoryToSelect = ProductCategory.electronics;
+              break;
+          }
+          if (categoryToSelect != ProductCategory.all) {
+            loadedProducts = products
+                .where((element) => element.category == categoryToSelect)
+                .toList();
+          }
         }
-        if (categoryToSelect != ProductCategory.all) {
-          loadedProducts = products
-              .where((element) => element.category == categoryToSelect)
-              .toList();
-        }
+
         emit(ShopHomeSelectedCategory());
       }
       if (event is GetAllProducts) {
