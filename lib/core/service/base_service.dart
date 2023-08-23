@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:injectable/injectable.dart';
 import 'package:http/http.dart' as http;
-import 'package:shopping_application/core/common_models/error_model.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shopping_application/core/constants/app_constants.dart';
 import 'package:shopping_application/core/exceptions/generic_exception.dart';
 import 'package:shopping_application/core/exceptions/server_exception.dart';
@@ -17,9 +15,7 @@ class BaseService {
   }) async {
     try {
       String url = '$baseUrl$uri';
-      final Map<String, dynamic> globalParams = {
-        accessKey: accessKeyValue,
-      };
+      final Map<String, dynamic> globalParams = {};
       if (params.isNotEmpty) {
         globalParams.addAll(params);
       }
@@ -27,13 +23,7 @@ class BaseService {
       final http.Response response =
           await http.get(tempUri, headers: headers).timeout(timeOutDuration);
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        final dynamic decodedJson = jsonDecode(response.body);
-        if (decodedJson['success'] != null && decodedJson['success'] == false) {
-          ErrorModel errorModel = ErrorModel.fromJson(decodedJson);
-          throw ServerException(info: errorModel.message);
-        } else {
-          return response;
-        }
+        return response;
       } else {
         throw GenericException(
             statusCode: response.statusCode,
